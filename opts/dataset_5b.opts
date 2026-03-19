@@ -42,7 +42,7 @@ AlignmentFile_Prop    $KTRACKER_ROOT/alignment/run5e/alignment_prop.txt
 AlignmentFile_Mille   $KTRACKER_ROOT/alignment/run5e/align_mille.txt
 
 #Calibration, not used if OnlineAlignment_enable is set to 1
-CalibrationsFile $KTRACKER_ROOT/alignment/run6/calibration.txt
+CalibrationsFile $KTRACKER_ROOT/alignment/run5e/calibration.txt
 
 #Trigger roads, only effective if TriggerMask_enable is set to 1
 Trigger_Repository      $TRIGGER_ROOT
@@ -142,8 +142,8 @@ Evaluation_enable 0
 DumpMiniBias 0
 
 # rejection window size on drift chambers
-ST0_Reject  0.13
+ST0_Reject  0.12
 ST1_Reject  0.25
-ST2_Reject  0.18
+ST2_Reject  0.15
 ST3p_Reject  0.16
-ST3m_Reject  0.16
+ST3m_Reject  0.14

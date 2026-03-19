@@ -2,6 +2,7 @@
 
 The opts files were taken from `/seaquest/users/harshaka/e906_project/e906-root-ana/opts` at 22:30 of 2026/Jan/07.
 Some files (like `_ts`) were omitted because the time-offset parameter etc. don't matter in this package.
+`dataset_5a.opts` and `dataset_5b.opts` were updated on 2026/Mar/19, because a newer version was found in Harsha's directory.
 
 dataset_57.opts = 57_2.opts
 dataset_59.opts = 59.opts
