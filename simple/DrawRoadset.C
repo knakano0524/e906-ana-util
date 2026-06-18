@@ -6,7 +6,7 @@ void DrawOne(const int rs_id, const vector<int>* list_road, const string label, 
  * ROOT macro to draw all enabled roads in the given roadset.
  * It is an example of using UtilTrigger etc.
  */
-void DrawRoadset(const int rs_id)
+void DrawRoadset(const int rs_id=67)
 {
   cout << "Roadset " << rs_id << endl;
   auto list_road_pos_top = UtilTrigger::ReadRoadList(rs_id, "plus" , "top"   );
@@ -25,7 +25,7 @@ void DrawOne(const int rs_id, const vector<int>* list_road, const string label, 
   gStyle->SetOptStat(0);
   TCanvas* c1 = new TCanvas("c1", "", 1600, 800);
   c1->SetMargin(0.02, 0.02, 0.02, 0.02); // (l, r, b, t)
-  TH1* frame = new TH2D("frame", "", 1, 0.5, 4.5, 1, -9, 9);
+  TH1* frame = new TH2D("frame", "", 1, 0.8, 4.2, 1, -9, 9);
   frame->Draw("A");
   
   TLine line;
@@ -48,7 +48,20 @@ void DrawOne(const int rs_id, const vector<int>* list_road, const string label, 
   gr->Draw("P");
 
   TText text;
+  text.SetTextColor(kRed);
+  text.SetTextAlign(22); // center center
+  text.DrawText(1.0, -6.2,  "H1X 1");
+  text.DrawText(0.9,  5.5, "23");
+  text.DrawText(2.0, -8.2,  "H2X 1");
+  text.DrawText(2.0,  8.2, "16");
+  text.DrawText(3.0, -8.2,  "H3X 1");
+  text.DrawText(3.0,  8.2, "16");
+  text.DrawText(4.0, -8.2,  "H4X 1");
+  text.DrawText(4.0,  8.2, "16");
+  
   text.SetNDC(true);
+  text.SetTextColor(kBlack);
+  text.SetTextAlign(11); // left bottom
   text.DrawText(0.04, 0.92, Form("Roadset %i", rs_id) );
   text.DrawText(0.04, 0.86, label.c_str());
   text.DrawText(0.08, 0.06, Form("%zu roads", list_road->size()) );
