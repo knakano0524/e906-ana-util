@@ -49,6 +49,44 @@ int FlipRoadTopBottom(const int road)
   return Hodo2Road(h1, h2, h3, h4, -tb);
 }
 
+
+std::vector<int> ReadRoadList(const std::string fname)
+{
+  std::vector<int> list_roads;
+  ifstream ifs(fname);
+  string line;
+  while (getline(ifs, line)) {
+    istringstream iss(line);
+    int road_id;
+    iss >> road_id;
+    list_roads.push_back(road_id);
+  }
+  ifs.close();
+  return list_roads;
+}
+
+std::vector<int> ReadRoadList(const int rs_id, const std::string plus_minus, const std::string top_bottom)
+{
+  const std::string dir_base = "/exp/seaquest/app/software/osg/software/AL9/seaquest/trigger/firmware/roads/L1";
+  return ReadRoadList(dir_base + "/" + std::to_string(rs_id) + "/roads_" + plus_minus + "_" + top_bottom + ".txt");
+}
+  
+std::vector<int> FindEnabledRoads(const std::vector<int>& list_road_id, const std::vector<int>& roadset)
+{
+  std::vector<int> list_enabled_roads;
+  for (auto it = list_road_id.begin(); it != list_road_id.end(); it++) {
+    if (std::find(roadset.begin(), roadset.end(), *it) != roadset.end()) list_enabled_roads.push_back(*it);
+  }
+  return list_enabled_roads;
+}
+
+bool IsEnabledRoad(const int road_id, const std::vector<int>& roadset)
+{
+  std::vector<int> list_road = { road_id };
+  std::vector<int> list_road_enabled = FindEnabledRoads(list_road, roadset);
+  return list_road_enabled.size() > 0;
+}
+
 }; // namespace UtilTrigger
 
 #endif // _UTIL_TRIGGER__H_
