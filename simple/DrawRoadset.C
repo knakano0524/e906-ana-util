@@ -9,10 +9,10 @@ void DrawOne(const int rs_id, const vector<int>* list_road, const string label, 
 void DrawRoadset(const int rs_id=67)
 {
   cout << "Roadset " << rs_id << endl;
-  auto list_road_pos_top = UtilTrigger::ReadRoadList(rs_id, "plus" , "top"   );
-  auto list_road_pos_bot = UtilTrigger::ReadRoadList(rs_id, "plus" , "bottom");
-  auto list_road_neg_top = UtilTrigger::ReadRoadList(rs_id, "minus", "top"   );
-  auto list_road_neg_bot = UtilTrigger::ReadRoadList(rs_id, "minus", "bottom");
+  auto list_road_pos_top = UtilTrigger::ReadRoadList(rs_id, +1, +1);
+  auto list_road_pos_bot = UtilTrigger::ReadRoadList(rs_id, +1, -1);
+  auto list_road_neg_top = UtilTrigger::ReadRoadList(rs_id, -1, +1);
+  auto list_road_neg_bot = UtilTrigger::ReadRoadList(rs_id, -1, -1);
   DrawOne(rs_id, &list_road_pos_top, "Positive Top"   , "pos_top");
   DrawOne(rs_id, &list_road_pos_bot, "Positive Bottom", "pos_bot");
   DrawOne(rs_id, &list_road_neg_top, "Negative Top"   , "neg_top");

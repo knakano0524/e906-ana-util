@@ -65,10 +65,19 @@ std::vector<int> ReadRoadList(const std::string fname)
   return list_roads;
 }
 
-std::vector<int> ReadRoadList(const int rs_id, const std::string plus_minus, const std::string top_bottom)
+/**
+ * See DocDB 11568 about the handling of roadsets 67 and 70.
+ */
+std::vector<int> ReadRoadList(const int rs_id, const int plus_minus, const int top_bottom)
 {
-  const std::string dir_base = "/exp/seaquest/app/software/osg/software/AL9/seaquest/trigger/firmware/roads/L1";
-  return ReadRoadList(dir_base + "/" + std::to_string(rs_id) + "/roads_" + plus_minus + "_" + top_bottom + ".txt");
+  std::string fname = "/exp/seaquest/app/software/osg/software/AL9/seaquest/trigger/firmware/roads/L1/";
+  fname += std::to_string(rs_id) + "/roads";
+  if (rs_id == 67 || rs_id == 70) fname += (plus_minus > 0 ? "_minus" : "_plus");
+  else                            fname += (plus_minus > 0 ? "_plus" : "_minus");
+  fname += (top_bottom > 0 ? "_top" : "_bottom");
+  fname += ".txt";
+  
+  return ReadRoadList(fname);
 }
   
 std::vector<int> FindEnabledRoads(const std::vector<int>& list_road_id, const std::vector<int>& roadset)

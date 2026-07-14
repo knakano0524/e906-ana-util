@@ -48,5 +48,51 @@ int FlipRoadTopBottom(const int road)
   Road2Hodo(road, h1, h2, h3, h4, tb);
   return Hodo2Road(h1, h2, h3, h4, -tb);
 }
+
+std::vector<int> ReadRoadList(const std::string fname)
+{
+  std::vector<int> list_roads;
+  ifstream ifs(fname);
+  string line;
+  while (getline(ifs, line)) {
+    istringstream iss(line);
+    int road_id;
+    iss >> road_id;
+    list_roads.push_back(road_id);
+  }
+  ifs.close();
+  return list_roads;
+}
+
+/**
+ * See DocDB 11568 about the handling of roadsets 67 and 70.
+ */
+std::vector<int> ReadRoadList(const int rs_id, const int plus_minus, const int top_bottom)
+{
+  std::string fname = "/exp/seaquest/app/software/osg/software/AL9/seaquest/trigger/firmware/roads/L1/";
+  fname += std::to_string(rs_id) + "/roads";
+  if (rs_id == 67 || rs_id == 70) fname += (plus_minus > 0 ? "_minus" : "_plus");
+  else                            fname += (plus_minus > 0 ? "_plus" : "_minus");
+  fname += (top_bottom > 0 ? "_top" : "_bottom");
+  fname += ".txt";
+  
+  return ReadRoadList(fname);
+}
+  
+std::vector<int> FindEnabledRoads(const std::vector<int>& list_road_id, const std::vector<int>& roadset)
+{
+  std::vector<int> list_enabled_roads;
+  for (auto it = list_road_id.begin(); it != list_road_id.end(); it++) {
+    if (std::find(roadset.begin(), roadset.end(), *it) != roadset.end()) list_enabled_roads.push_back(*it);
+  }
+  return list_enabled_roads;
+}
+
+bool IsEnabledRoad(const int road_id, const std::vector<int>& roadset)
+{
+  std::vector<int> list_road = { road_id };
+  std::vector<int> list_road_enabled = FindEnabledRoads(list_road, roadset);
+  return list_road_enabled.size() > 0;
+}
   
 }; // End of "namespace UtilTrigger"
